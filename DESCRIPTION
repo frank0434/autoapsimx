@@ -16,3 +16,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/frank0434/autoapsimx
+BugReports: https://github.com/frank0434/autoapsimx/issues
