@@ -1,0 +1,7 @@
+pandoc: 2.7.2
+pkgdown: 1.5.1
+pkgdown_sha: ~
+articles:
+  Introduction-to-autoapsimx: Introduction-to-autoapsimx.html
+last_built: 2020-04-19T04:38Z
+
