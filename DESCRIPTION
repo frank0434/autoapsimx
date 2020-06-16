@@ -16,11 +16,13 @@ RoxygenNote: 7.1.0
 Imports:
     data.table (>= 1.9.8),
     ggplot2 (>= 3.2.1),
-    stringr (>= 1.4.0)
+    stringr (>= 1.4.0),
+    hydroGOF (>= 0.4-0)
 Suggests: 
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    zoo
 VignetteBuilder: knitr
 URL: https://github.com/frank0434/autoapsimx
 BugReports: https://github.com/frank0434/autoapsimx/issues
