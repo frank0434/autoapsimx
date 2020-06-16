@@ -1,6 +1,6 @@
 #' DUL_LL
-#'
-#' @param x
+#' @description
+#' @param x a numeric vector. Soil water
 #' @param thickness
 #'
 #' @return
