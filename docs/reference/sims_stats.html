@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>read_met — read_met • autoapsimx</title>
+<title>sims_stats — sims_stats • autoapsimx</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="read_met — read_met" />
-<meta property="og:description" content="read_met" />
+<meta property="og:title" content="sims_stats — sims_stats" />
+<meta property="og:description" content="Process one kl set with six KLR and six RFV" />
 
 
 
@@ -120,42 +120,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>read_met</h1>
-    <small class="dont-index">Source: <a href='https://github.com/frank0434/autoapsimx/blob/master/R/readMet.R'><code>R/readMet.R</code></a></small>
-    <div class="hidden name"><code>read_met.Rd</code></div>
+    <h1>sims_stats</h1>
+    <small class="dont-index">Source: <a href='https://github.com/frank0434/autoapsimx/blob/master/R/sims_stats.R'><code>R/sims_stats.R</code></a></small>
+    <div class="hidden name"><code>sims_stats.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>read_met</p>
+    <p>Process one kl set with six KLR and six RFV</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_met</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>path_met</span>, <span class='kw'>skip_unit</span> <span class='kw'>=</span> <span class='fl'>9</span>, <span class='kw'>skip_meta</span> <span class='kw'>=</span> <span class='fl'>7</span>)</pre>
+    <pre class="usage"><span class='fu'>sims_stats</span>(
+  <span class='no'>pred_obs</span>,
+  <span class='kw'>keys</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Experiment"</span>, <span class='st'>"SimulationID"</span>, <span class='st'>"SowingDate"</span>, <span class='st'>"KLR"</span>, <span class='st'>"RFV"</span>, <span class='st'>"SKL"</span>),
+  <span class='kw'>col_pred</span> <span class='kw'>=</span> <span class='st'>"PSWC"</span>,
+  <span class='kw'>col_obs</span> <span class='kw'>=</span> <span class='st'>"SWC"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>A character string. The path to access the met files.</p></td>
+      <th>pred_obs</th>
+      <td><p>a data.table which merged from the simulation table and
+observation data.table</p></td>
     </tr>
     <tr>
-      <th>skip_unit</th>
-      <td><p>An integer. The number of rows for skipping the unit line in met files.</p></td>
+      <th>keys</th>
+      <td><p>grouping variables</p></td>
     </tr>
     <tr>
-      <th>skip_meta</th>
-      <td><p>An integer. The number of rows for skipping the meta data before the column names start.</p></td>
+      <th>col_pred</th>
+      <td><p>the colname for prediction result</p></td>
+    </tr>
+    <tr>
+      <th>col_obs</th>
+      <td><p>the colname for observation</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data .table and .frame is returned.</p>
+    
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>read_met</span>(<span class='st'>"path"</span>, <span class='kw'>skip_unit</span> <span class='kw'>=</span> <span class='fl'>9</span>, <span class='kw'>skip_meta</span> <span class='kw'>=</span> <span class='fl'>7</span>)
-}</div></pre>
+
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
