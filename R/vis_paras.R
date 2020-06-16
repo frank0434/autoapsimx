@@ -62,7 +62,7 @@ plot_params <- function(DT = top5, title, point_size = 2){
         theme_water() +
         theme(legend.position = "top",
               axis.text.x = element_text(angle = 30, hjust = 1)) +
-        ggsave(str_glue("{title}.pdf"), width = 10, height = 10, dpi = 300)
+        ggsave(stringr::str_glue("{title}.pdf"), width = 10, height = 10, dpi = 300)
     }
 
 }
