@@ -7,6 +7,8 @@
 DUL_LL(x, thickness)
 }
 \arguments{
+\item{x}{a numeric vector. Soil water}
+
 \item{thickness}{}
 }
 \value{
