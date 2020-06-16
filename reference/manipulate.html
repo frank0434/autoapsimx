@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>read_met — read_met • autoapsimx</title>
+<title>manipulate — manipulate • autoapsimx</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="read_met — read_met" />
-<meta property="og:description" content="read_met" />
+<meta property="og:title" content="manipulate — manipulate" />
+<meta property="og:description" content="Take a subset data.table subsetted by the treament and join it
+  with the corresponding simulation results" />
 
 
 
@@ -120,42 +121,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>read_met</h1>
-    <small class="dont-index">Source: <a href='https://github.com/frank0434/autoapsimx/blob/master/R/readMet.R'><code>R/readMet.R</code></a></small>
-    <div class="hidden name"><code>read_met.Rd</code></div>
+    <h1>manipulate</h1>
+    <small class="dont-index">Source: <a href='https://github.com/frank0434/autoapsimx/blob/master/R/sims_stats.R'><code>R/sims_stats.R</code></a></small>
+    <div class="hidden name"><code>manipulate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>read_met</p>
+    <p>Take a subset data.table subsetted by the treament and join it
+  with the corresponding simulation results</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_met</span>(path = <span class='kw'>path_met</span>, skip_unit = <span class='fl'>9</span>, skip_meta = <span class='fl'>7</span>)</pre>
+    <pre class="usage"><span class='fu'>manipulate</span>(DT_obs = <span class='kw'>obs</span>, DT_pred = <span class='kw'>dt</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>A character string. The path to access the met files.</p></td>
+      <th>DT_obs</th>
+      <td><p>a data table that subsetted from the aggregated raw data</p></td>
     </tr>
     <tr>
-      <th>skip_unit</th>
-      <td><p>An integer. The number of rows for skipping the unit line in met files.</p></td>
-    </tr>
-    <tr>
-      <th>skip_meta</th>
-      <td><p>An integer. The number of rows for skipping the meta data before the column names start.</p></td>
+      <th>DT_pred</th>
+      <td><p>a data table that has the simulation results</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data .table and .frame is returned.</p>
+    <p>a data table has the same number of rows as the observation
+  data.table</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>read_met</span>(<span class='st'>"path"</span>, skip_unit = <span class='fl'>9</span>, skip_meta = <span class='fl'>7</span>)
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
