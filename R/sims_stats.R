@@ -65,21 +65,30 @@ read_dbtab <- function(path = "./03processed-data/Richard.sqlite3", table = "Soi
 #'
 #' @param DT_obs a data table that subsetted from the aggregated raw data
 #' @param DT_pred a data table that has the simulation results
+#' @param subset_cols a string vector. The column names that unwanted in the
+#'   prediction table. The default mode will remove "CheckpointID",
+#'   "Experiment", "FolderName"
 #'
 #' @return a data table has the same number of rows as the observation
 #'   data.table
 #' @export
 #' @import data.table
 #' @examples
-manipulate <- function(DT_obs = obs, DT_pred = dt){
+manipulate <- function(DT_obs = obs, subset_cols = NULL,  DT_pred = dt){
   if(data.table::is.data.table(DT_obs) &
      data.table::is.data.table(DT_pred)){
-    pred_swc <- DT_pred[,list(Date, SimulationID,KLR, RFV, SKL, k, LAI, PSWC)
-                        ][order(SimulationID)]
+    cols <- c("CheckpointID", "Experiment", "FolderName","Zone")
+    if(is.null(subset_cols)) {
+      cols
+      } else{
+        cols <- subset_cols
+      }
+    pred_swc <- DT_pred[, (cols) :=  NULL][order(SimulationID)]
     pred_obs <- pred_swc[DT_obs, on = c("Date" = "Clock.Today" )
                          ][order(SimulationID)]
   }
   return(pred_obs)
+  cat(cols, "have been removed from the prediction table.\r\n")
 }
 
 #' sims_stats
