@@ -4,10 +4,14 @@
 \alias{manipulate}
 \title{manipulate}
 \usage{
-manipulate(DT_obs = obs, DT_pred = dt)
+manipulate(DT_obs = obs, subset_cols = NULL, DT_pred = dt)
 }
 \arguments{
 \item{DT_obs}{a data table that subsetted from the aggregated raw data}
+
+\item{subset_cols}{a string vector. The column names that unwanted in the
+prediction table. The default mode will remove "CheckpointID",
+"Experiment", "FolderName"}
 
 \item{DT_pred}{a data table that has the simulation results}
 }

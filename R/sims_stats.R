@@ -142,17 +142,35 @@ sims_stats <- function(pred_obs,
 
 #' sims_stats_multi
 #' @description assemble the function above to process multiple dbs
-#' @param path_sims
+#'
+#' @param path_sims The path to all apsimx output
 #' @param pattern db extension
-#' @param DT_observation
+#' @param DT_observation The data.table has aggregated observations and ordered
+#'   by days
+#' @param tableName a charater string. The name of the simulation output table
+#'   in the db
+#' @param col_treatment1 Default is the "Experiment"
+#' @param col_treatment2 Default is the "SowingDate"
+#' @param mode Two options, _Profile_ will calculate the soil water profile
+#'   statisic; _Layers_ will calculate the stats for each layer.
+#' @param keys a character vector to define the keys for grouping. The default
+#'   keys are _"Experiment", "SimulationID", "SowingDate","KLR","RFV","SKL"_ for
+#'   soil water profile - _Profile_ mode; _"Depth"_ should be added in when
+#'   using _Layers_ mode
 #'
 #' @import data.table
 #'
-#' @return
+#' @return a list
 #' @export
 #'
 #' @examples
-sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation){
+sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
+                             tableName = "Report",
+                             col_treatment1 = "Experiment",
+                             col_treatment2 = "SowingDate",
+                             mode = c("Profile", "Layers"),
+                             keys = c("Experiment", "SimulationID", "SowingDate",
+                                      "KLR","RFV","SKL")){
   # Set up
   t1 <- Sys.time()
   dbs <- list.files(path = path_sims, pattern = pattern, full.names = TRUE)
@@ -162,15 +180,42 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation){
   no <- 1L
   for (i in dbs) {
     # 1 read db
-    dt <- read_dbtab(path = i, table = "Report")
-    cat("Processing", i, no,"of", length(dbs), ".\r\n")
+    dt <- read_dbtab(path = i, table = tableName)
+    cat("Processing", i, "\r\n",no,"of", length(dbs), ".\r\n")
     no = no + 1L
     site <- extract_trts(filename = i)[1]
     sd <- extract_trts(filename = i)[2]
-    obs_sd <- data.table::setDT(DT_observation)[Experiment == site & SowingDate == sd]
+    obs_sd <- data.table::setDT(DT_observation)[get(col_treatment1) == site & get(col_treatment2) == sd]
 
-    pred_swc <- manipulate(DT_obs = obs_sd, DT_pred = dt)
-    stats <- sims_stats(pred_swc)
+    if(mode == "Profile"){
+      pred_swc <- manipulate(DT_obs = obs_sd, DT_pred = dt)
+      stats <- sims_stats(pred_swc)
+    } else if(mode == "Layers"){
+      value_vars <- grep("^(!?SW\\()", names(dt), value = TRUE)
+
+      pred <- dt %>%
+        data.table::melt(value.name = "pred_VWC",
+                         measure.vars = value_vars,
+                         variable.name = "Depth",
+                         variable.factor = FALSE)
+      cols <- c("CheckpointID", "Experiment", "FolderName", "Zone")
+      pred[, (cols) := NULL]
+
+      obs <- obs_sd %>%
+        data.table::melt(value.name = "ob_VWC",
+                         measure.vars = value_vars,
+                         variable.name = "Depth",
+                         variable.factor = FALSE)
+      pred_obs <- data.table::merge.data.table(pred, obs,
+                                               by.x = c("Date", "Depth"),
+                                               by.y = c("Clock.Today", "Depth"))
+      stats <- sims_stats(pred_obs,
+                          keys = keys,
+                          col_pred = "pred_VWC",
+                          col_obs = "ob_VWC")
+    }
+
+
     l_stats[[i]] <- stats
   }
 
@@ -180,3 +225,5 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation){
   return(t2-t1)
 
 }
+
+

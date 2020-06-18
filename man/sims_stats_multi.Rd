@@ -4,15 +4,42 @@
 \alias{sims_stats_multi}
 \title{sims_stats_multi}
 \usage{
-sims_stats_multi(path_sims, pattern = ".db$", DT_observation)
+sims_stats_multi(
+  path_sims,
+  pattern = ".db$",
+  DT_observation,
+  tableName = "Report",
+  col_treatment1 = "Experiment",
+  col_treatment2 = "SowingDate",
+  mode = c("Profile", "Layers"),
+  keys = c("Experiment", "SimulationID", "SowingDate", "KLR", "RFV", "SKL")
+)
 }
 \arguments{
+\item{path_sims}{The path to all apsimx output}
+
 \item{pattern}{db extension}
 
-\item{DT_observation}{}
+\item{DT_observation}{The data.table has aggregated observations and ordered
+by days}
+
+\item{tableName}{a charater string. The name of the simulation output table
+in the db}
+
+\item{col_treatment1}{Default is the "Experiment"}
+
+\item{col_treatment2}{Default is the "SowingDate"}
+
+\item{mode}{Two options, _Profile_ will calculate the soil water profile
+statisic; _Layers_ will calculate the stats for each layer.}
+
+\item{keys}{a character vector to define the keys for grouping. The default
+keys are _"Experiment", "SimulationID", "SowingDate","KLR","RFV","SKL"_ for
+soil water profile - _Profile_ mode; _"Depth"_ should be added in when
+using _Layers_ mode}
 }
 \value{
-
+a list
 }
 \description{
 assemble the function above to process multiple dbs
