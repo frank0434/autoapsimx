@@ -129,26 +129,63 @@
     <p>assemble the function above to process multiple dbs</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sims_stats_multi</span>(<span class='kw'>path_sims</span>, pattern = <span class='st'>".db$"</span>, <span class='kw'>DT_observation</span>)</pre>
+    <pre class="usage"><span class='fu'>sims_stats_multi</span>(
+  <span class='kw'>path_sims</span>,
+  pattern = <span class='st'>".db$"</span>,
+  <span class='kw'>DT_observation</span>,
+  tableName = <span class='st'>"Report"</span>,
+  col_treatment1 = <span class='st'>"Experiment"</span>,
+  col_treatment2 = <span class='st'>"SowingDate"</span>,
+  mode = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Profile"</span>, <span class='st'>"Layers"</span>),
+  keys = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Experiment"</span>, <span class='st'>"SimulationID"</span>, <span class='st'>"SowingDate"</span>, <span class='st'>"KLR"</span>, <span class='st'>"RFV"</span>, <span class='st'>"SKL"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>path_sims</th>
+      <td><p>The path to all apsimx output</p></td>
+    </tr>
     <tr>
       <th>pattern</th>
       <td><p>db extension</p></td>
     </tr>
     <tr>
       <th>DT_observation</th>
-      <td></td>
+      <td><p>The data.table has aggregated observations and ordered
+by days</p></td>
+    </tr>
+    <tr>
+      <th>tableName</th>
+      <td><p>a charater string. The name of the simulation output table
+in the db</p></td>
+    </tr>
+    <tr>
+      <th>col_treatment1</th>
+      <td><p>Default is the "Experiment"</p></td>
+    </tr>
+    <tr>
+      <th>col_treatment2</th>
+      <td><p>Default is the "SowingDate"</p></td>
+    </tr>
+    <tr>
+      <th>mode</th>
+      <td><p>Two options, _Profile_ will calculate the soil water profile
+statisic; _Layers_ will calculate the stats for each layer.</p></td>
+    </tr>
+    <tr>
+      <th>keys</th>
+      <td><p>a character vector to define the keys for grouping. The default
+keys are _"Experiment", "SimulationID", "SowingDate","KLR","RFV","SKL"_ for
+soil water profile - _Profile_ mode; _"Depth"_ should be added in when
+using _Layers_ mode</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-
-
+    <p>a list</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

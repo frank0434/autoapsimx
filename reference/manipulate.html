@@ -131,7 +131,7 @@
   with the corresponding simulation results</p>
     </div>
 
-    <pre class="usage"><span class='fu'>manipulate</span>(DT_obs = <span class='kw'>obs</span>, DT_pred = <span class='kw'>dt</span>)</pre>
+    <pre class="usage"><span class='fu'>manipulate</span>(DT_obs = <span class='kw'>obs</span>, subset_cols = <span class='kw'>NULL</span>, DT_pred = <span class='kw'>dt</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,6 +139,12 @@
     <tr>
       <th>DT_obs</th>
       <td><p>a data table that subsetted from the aggregated raw data</p></td>
+    </tr>
+    <tr>
+      <th>subset_cols</th>
+      <td><p>a string vector. The column names that unwanted in the
+prediction table. The default mode will remove "CheckpointID",
+"Experiment", "FolderName"</p></td>
     </tr>
     <tr>
       <th>DT_pred</th>
