@@ -62,7 +62,7 @@ subset_pred <- function(DT = top5,
 #'
 #' @examples
 plot_params <- function(DT = top5,
-                        title,
+                        title, format = "pdf",
                         col_pred = "PSWC",
                         col_obs = "SWC",
                         point_size = 2,
@@ -96,7 +96,7 @@ plot_params <- function(DT = top5,
         theme_water() +
         theme(legend.position = "top",
               axis.text.x = element_text(angle = 30, hjust = 1)) +
-        ggsave(stringr::str_glue("{title}.pdf"), width = width, height = height, dpi = 300)
+        ggsave(stringr::str_glue("{title}.{format}"), width = width, height = height, dpi = 300)
     }
 
 }
