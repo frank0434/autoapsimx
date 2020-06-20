@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>plot_params — plot_params • autoapsimx</title>
+<title>EditLayerKL — EditLayerKL • autoapsimx</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,9 @@
 
 
 
-<meta property="og:title" content="plot_params — plot_params" />
-<meta property="og:description" content="
-
-" />
+<meta property="og:title" content="EditLayerKL — EditLayerKL" />
+<meta property="og:description" content="Edit a base `.apsimx` file with a _kl_ value to update a
+  specific layer in the soil model" />
 
 
 
@@ -122,39 +121,42 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>plot_params</h1>
-    <small class="dont-index">Source: <a href='https://github.com/frank0434/autoapsimx/blob/master/R/vis_paras.R'><code>R/vis_paras.R</code></a></small>
-    <div class="hidden name"><code>plot_params.Rd</code></div>
+    <h1>EditLayerKL</h1>
+    <small class="dont-index">Source: <a href='https://github.com/frank0434/autoapsimx/blob/master/R/EditApsimx.R'><code>R/EditApsimx.R</code></a></small>
+    <div class="hidden name"><code>EditLayerKL.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-
-
+    <p>Edit a base `.apsimx` file with a _kl_ value to update a
+  specific layer in the soil model</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_params</span>(
-  DT = <span class='kw'>top5</span>,
-  <span class='kw'>title</span>,
-  format = <span class='st'>"pdf"</span>,
-  col_pred = <span class='st'>"PSWC"</span>,
-  col_obs = <span class='st'>"SWC"</span>,
-  point_size = <span class='fl'>2</span>,
-  Depth = <span class='kw'>NULL</span>,
-  width = <span class='fl'>10</span>,
-  height = <span class='fl'>10</span>
-)</pre>
+    <pre class="usage"><span class='fu'>EditLayerKL</span>(<span class='kw'>layer</span>, <span class='kw'>value</span>, <span class='kw'>path</span>, <span class='kw'>apsimx</span>, <span class='kw'>modifiedName</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>Depth</th>
-      <td><p>default is profile. can be set the "Depth" to check each layer.</p></td>
+      <th>layer</th>
+      <td><p>an integer for which layer needs to be modified</p></td>
     </tr>
     <tr>
-      <th>height</th>
-      <td></td>
+      <th>value</th>
+      <td><p>a floating point number. must be less than 1. this value should
+be sesenable biologically</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>the path to apsimx `Models.exe`</p></td>
+    </tr>
+    <tr>
+      <th>apsimx</th>
+      <td><p>the path to the base `.apsimx` file</p></td>
+    </tr>
+    <tr>
+      <th>modifiedName</th>
+      <td><p>a string to show where to save modified file. This is for
+preventing the **Edit** flag overwriten the base `.apsimx` file.</p></td>
     </tr>
     </table>
 
