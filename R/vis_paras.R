@@ -53,6 +53,9 @@ subset_pred <- function(DT = top5,
 #' @param col_obs
 #' @param point_size
 #' @param Depth default is profile. can be set the "Depth" to check each layer.
+#' @param format
+#' @param width
+#' @param height
 #'
 #' @import ggplot2
 #' @import stringr

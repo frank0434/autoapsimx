@@ -4,14 +4,26 @@
 \alias{plot_params}
 \title{plot_params}
 \usage{
-plot_params(DT = top5, title, point_size = 2)
+plot_params(
+  DT = top5,
+  title,
+  format = "pdf",
+  col_pred = "PSWC",
+  col_obs = "SWC",
+  point_size = 2,
+  Depth = NULL,
+  width = 10,
+  height = 10
+)
 }
 \arguments{
-\item{title}{}
+\item{Depth}{default is profile. can be set the "Depth" to check each layer.}
+
+\item{height}{}
 }
 \value{
 
 }
 \description{
-plot_params
+
 }
