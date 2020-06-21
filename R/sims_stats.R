@@ -37,7 +37,8 @@ extract_trts <- function(filename,
 #'
 #' @param path the path to the sqlite file
 #' @param table a charater string for the table name
-#'
+#' @import DBI
+#' @import RSQLite
 #' @return
 #' @export
 #' @import data.table
