@@ -4,7 +4,7 @@
 \alias{EditLayerKL}
 \title{EditLayerKL}
 \usage{
-EditLayerKL(layer, value, path, apsimx, modifiedName)
+EditLayerKL(layer, value, path, apsimx, saveTo)
 }
 \arguments{
 \item{layer}{an integer for which layer needs to be modified}
@@ -16,7 +16,7 @@ be sesenable biologically}
 
 \item{apsimx}{the path to the base `.apsimx` file}
 
-\item{modifiedName}{a string to show where to save modified file. This is for
+\item{saveTo}{a path to show where to save modified file. This is for
 preventing the **Edit** flag overwriten the base `.apsimx` file.}
 }
 \value{
