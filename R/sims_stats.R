@@ -21,9 +21,9 @@
 #'
 #' @examples
 extract_trts <- function(filename,
-                         pattern = ".+ModifiedSKL_0\\.\\d{1,2}|\\.db",
+                         pattern = "(Ashley|Iversen).+SD\\d{1,2}",
                          pattern_split = "(.+)(SD\\d{1,2})"){
-  site_sd <- gsub(pattern,"",filename)
+  site_sd <- regmatches(basename(filename), regexpr(pattern, basename(filename)))
   site_sd <- gsub(pattern_split, "\\1_\\2", site_sd)
   site_sd <- unlist(strsplit(site_sd, split = "_"))
   site_sd
@@ -65,24 +65,24 @@ read_dbtab <- function(path = "./03processed-data/Richard.sqlite3", table = "Soi
 #'   with the corresponding simulation results
 #'
 #' @param DT_obs a data table that subsetted from the aggregated raw data
-#' @param DT_pred a data table that has the simulation results
-#' @param subset_cols a string vector. The column names that unwanted in the
+#' @param redundant_cols a string vector. The column names that unwanted in the
 #'   prediction table. The default mode will remove "CheckpointID",
 #'   "Experiment", "FolderName"
+#' @param DT_pred a data table that has the simulation results
 #'
 #' @return a data table has the same number of rows as the observation
 #'   data.table
 #' @export
 #' @import data.table
 #' @examples
-manipulate <- function(DT_obs = obs, subset_cols = NULL,  DT_pred = dt){
+manipulate <- function(DT_obs = obs, redundant_cols = NULL,  DT_pred = dt){
   if(data.table::is.data.table(DT_obs) &
      data.table::is.data.table(DT_pred)){
     cols <- c("CheckpointID", "Experiment", "FolderName","Zone")
-    if(is.null(subset_cols)) {
+    if(is.null(redundant_cols)) {
       cols
       } else{
-        cols <- subset_cols
+        cols <- redundant_cols
       }
     pred_swc <- DT_pred[, (cols) :=  NULL][order(SimulationID)]
     pred_obs <- pred_swc[DT_obs, on = c("Date" = "Clock.Today" )
@@ -152,12 +152,25 @@ sims_stats <- function(pred_obs,
 #'   in the db
 #' @param col_treatment1 Default is the "Experiment"
 #' @param col_treatment2 Default is the "SowingDate"
-#' @param mode Two options, _Profile_ will calculate the soil water profile
-#'   statisic; _Layers_ will calculate the stats for each layer.
-#' @param keys a character vector to define the keys for grouping. The default
-#'   keys are _"Experiment", "SimulationID", "SowingDate","KLR","RFV","SKL"_ for
-#'   soil water profile - _Profile_ mode; _"Depth"_ should be added in when
-#'   using _Layers_ mode
+#' @param mode three options:
+#' \itemize{
+#'   \item _Profile_ will calculate the soil water profile statisic.
+#'   \item _Layers_ will calculate the stats for each layer.
+#'   \item _Manual_ will calculate the layer by layer optimisation which will be
+#'   the results from simulations in all combinations of all layer and possible
+#'   kl values.
+#'}
+#' @param keys a character vector to define the keys for grouping. three options
+#'   to match the mode:
+#' \itemize{
+#'   \item _Profile_ mode - The default keys are _"Experiment", "SimulationID", "SowingDate","KLR","RFV","SKL"_ for
+#'   soil water profile.
+#'   \item _Layers_ mode - _"Depth"_ should be added into the default keys.
+#'   \item _Manual_ mode - _"Experiment", "SowingDate", "Depth"_ are the keys.
+#'   }
+#' @param pattern_split regular expression to split two treatment names
+#' @param pattern_trts regular expression to extract the treatment names from
+#'   filename
 #'
 #' @import data.table
 #'
@@ -167,9 +180,11 @@ sims_stats <- function(pred_obs,
 #' @examples
 sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
                              tableName = "Report",
+                             pattern_trts = "(Ashley|Iversen).+SD\\d{1,2}",
+                             pattern_split = "(.+)(SD\\d{1,2})",
                              col_treatment1 = "Experiment",
                              col_treatment2 = "SowingDate",
-                             mode = c("Profile", "Layers"),
+                             mode = c("Profile", "Layers","Manual"),
                              keys = c("Experiment", "SimulationID", "SowingDate",
                                       "KLR","RFV","SKL")){
   # Set up
@@ -180,13 +195,17 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
   names(l_stats) <- dbs
   no <- 1L
   for (i in dbs) {
+
     # 1 read db
     dt <- read_dbtab(path = i, table = tableName)
     cat("Processing", i, "\r\n",no,"of", length(dbs), ".\r\n")
     no = no + 1L
-    site <- extract_trts(filename = i)[1]
-    sd <- extract_trts(filename = i)[2]
-    obs_sd <- data.table::setDT(DT_observation)[get(col_treatment1) == site & get(col_treatment2) == sd]
+    # Subset the observation data
+    site <- extract_trts(filename = i, pattern = pattern)[1]
+    sd <- extract_trts(filename = i,  pattern = pattern)[2]
+    obs_sd <- data.table::setDT(DT_observation)[get(col_treatment1) == site
+                                                & get(col_treatment2) == sd]
+
 
     if(mode == "Profile"){
       pred_swc <- manipulate(DT_obs = obs_sd, DT_pred = dt)
@@ -207,6 +226,30 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
                          measure.vars = value_vars,
                          variable.name = "Depth",
                          variable.factor = FALSE)
+      pred_obs <- data.table::merge.data.table(pred, obs,
+                                               by.x = c("Date", "Depth"),
+                                               by.y = c("Clock.Today", "Depth"))
+      stats <- sims_stats(pred_obs,
+                          keys = keys,
+                          col_pred = "pred_VWC",
+                          col_obs = "ob_VWC")
+    } else if(mode == "Manual"){
+      layerNo. <- regmatches(basename(i), regexpr("L\\d{1,2}", basename(i)))
+      layer <- gsub("(L)(\\d{1,2})", "SW\\\\(\\2\\\\)", layerNo.)
+      depth_int <- as.integer(gsub("L", "", layerNo.))
+      colsofInteresetd <- grep(pattern = layer, colnames(dt), value = TRUE)
+      keys <- grep("SW", colnames(dt), invert = TRUE, value = TRUE)
+      cols <- c(keys, colsofInteresetd)
+      pred <- dt[,..cols
+                 ][, Depth := depth_int]
+      data.table::setnames(pred, colsofInteresetd, "pred_VWC")
+
+      keys_obs <- grep("SW", colnames(DT_observation), invert = TRUE, value = TRUE)
+      cols <- c(keys_obs, colsofInteresetd)
+      obs <- DT_observation[,..cols
+                            ][, Depth := depth_int]
+      data.table::setnames(obs, colsofInteresetd, "ob_VWC")
+
       pred_obs <- data.table::merge.data.table(pred, obs,
                                                by.x = c("Date", "Depth"),
                                                by.y = c("Clock.Today", "Depth"))
