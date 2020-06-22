@@ -9,9 +9,11 @@ sims_stats_multi(
   pattern = ".db$",
   DT_observation,
   tableName = "Report",
+  pattern_trts = "(Ashley|Iversen).+SD\\\\d{1,2}",
+  pattern_split = "(.+)(SD\\\\d{1,2})",
   col_treatment1 = "Experiment",
   col_treatment2 = "SowingDate",
-  mode = c("Profile", "Layers"),
+  mode = c("Profile", "Layers", "Manual"),
   keys = c("Experiment", "SimulationID", "SowingDate", "KLR", "RFV", "SKL")
 )
 }
@@ -26,17 +28,32 @@ by days}
 \item{tableName}{a charater string. The name of the simulation output table
 in the db}
 
+\item{pattern_trts}{regular expression to extract the treatment names from
+filename}
+
+\item{pattern_split}{regular expression to split two treatment names}
+
 \item{col_treatment1}{Default is the "Experiment"}
 
 \item{col_treatment2}{Default is the "SowingDate"}
 
-\item{mode}{Two options, _Profile_ will calculate the soil water profile
-statisic; _Layers_ will calculate the stats for each layer.}
+\item{mode}{three options:
+\itemize{
+  \item _Profile_ will calculate the soil water profile statisic.
+  \item _Layers_ will calculate the stats for each layer.
+  \item _Manual_ will calculate the layer by layer optimisation which will be
+  the results from simulations in all combinations of all layer and possible
+  kl values.
+}}
 
-\item{keys}{a character vector to define the keys for grouping. The default
-keys are _"Experiment", "SimulationID", "SowingDate","KLR","RFV","SKL"_ for
-soil water profile - _Profile_ mode; _"Depth"_ should be added in when
-using _Layers_ mode}
+\item{keys}{a character vector to define the keys for grouping. three options
+  to match the mode:
+\itemize{
+  \item _Profile_ mode - The default keys are _"Experiment", "SimulationID", "SowingDate","KLR","RFV","SKL"_ for
+  soil water profile.
+  \item _Layers_ mode - _"Depth"_ should be added into the default keys.
+  \item _Manual_ mode - _"Experiment", "SowingDate", "Depth"_ are the keys.
+  }}
 }
 \value{
 a list
