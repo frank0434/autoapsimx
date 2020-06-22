@@ -6,7 +6,7 @@
 \usage{
 extract_trts(
   filename,
-  pattern = ".+ModifiedSKL_0\\\\.\\\\d{1,2}|\\\\.db",
+  pattern = "(Ashley|Iversen).+SD\\\\d{1,2}",
   pattern_split = "(.+)(SD\\\\d{1,2})"
 )
 }
