@@ -114,31 +114,28 @@ sims_stats <- function(pred_obs,
                        col_pred = "PSWC",
                        col_obs = "SWC"
                        ){
-  if(data.table::is.data.table(pred_obs)){
-
-    stopifnot(exprs = {
-      col_pred %in% colnames(pred_obs)
-      col_obs %in% colnames(pred_obs)
+  DT <- data.table::as.data.table(pred_obs)
+  stopifnot(exprs = {
+    col_pred %in% colnames(DT)
+    col_obs %in% colnames(DT)
     })
 
-    setkeyv(pred_obs, keys)
-    nested <- pred_obs[, list(data = list(.SD)), by = key(pred_obs)]
+    data.table::setkeyv(DT, keys)
+    nested <- DT[, list(data = list(.SD)), by = key(DT)]
 
     # 5 calcualting inside the nested
     nested <- nested[, stats := lapply(data, function(x){
       # Calculate the stats via goodness of fit
-      m <- hydroGOF::gof(x[[col_pred]], x[[col_obs]])
+      m <- hydroGOF::gof(sim = x[[col_pred]], obs = x[[col_obs]])
       # Convert the matrix into a data.table with colnames
       m <- m %>%
         as.data.table(keep.rownames = T) %>%
         transpose(make.names = 'rn')
     })]
     # 6 Unnest the data.table
-    # stats <- nested[, unlist(stats, recursive = FALSE), by = key(pred_obs)]
+    # stats <- nested[, unlist(stats, recursive = FALSE), by = key(DT)]
     nested
   }
-
-}
 
 
 #' sims_stats_multi
@@ -201,8 +198,11 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
     cat("Processing", i, "\r\n",no,"of", length(dbs), ".\r\n")
     no = no + 1L
     # Subset the observation data
-    site <- extract_trts(filename = i, pattern = pattern)[1]
-    sd <- extract_trts(filename = i,  pattern = pattern)[2]
+    treatmentNames <- extract_trts(filename = i,
+                                   pattern = pattern_trts,
+                                   pattern_split = pattern_split)
+    site <- treatmentNames[1]
+    sd <- treatmentNames[2]
     obs_sd <- data.table::setDT(DT_observation)[get(col_treatment1) == site
                                                 & get(col_treatment2) == sd]
 
@@ -238,22 +238,24 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
       layer <- gsub("(L)(\\d{1,2})", "SW\\\\(\\2\\\\)", layerNo.)
       depth_int <- as.integer(gsub("L", "", layerNo.))
       colsofInteresetd <- grep(pattern = layer, colnames(dt), value = TRUE)
-      keys <- grep("SW", colnames(dt), invert = TRUE, value = TRUE)
-      cols <- c(keys, colsofInteresetd)
-      pred <- dt[,..cols
+      keys_pred <- grep("SW", colnames(dt), invert = TRUE, value = TRUE)
+      cols_pred <- c(keys_pred, colsofInteresetd)
+      pred <- dt[,..cols_pred
                  ][, Depth := depth_int]
       data.table::setnames(pred, colsofInteresetd, "pred_VWC")
 
-      keys_obs <- grep("SW", colnames(DT_observation), invert = TRUE, value = TRUE)
-      cols <- c(keys_obs, colsofInteresetd)
-      obs <- DT_observation[,..cols
-                            ][, Depth := depth_int]
+      keys_obs <- grep("SW", colnames(obs_sd), invert = TRUE, value = TRUE)
+      cols_obs <- c(keys_obs, colsofInteresetd)
+      obs <- obs_sd[,..cols_obs
+                    ][, Depth := depth_int]
       data.table::setnames(obs, colsofInteresetd, "ob_VWC")
 
       pred_obs <- data.table::merge.data.table(pred, obs,
                                                by.x = c("Date", "Depth"),
                                                by.y = c("Clock.Today", "Depth"))
-      stats <- sims_stats(pred_obs,
+      pred_obs[, c("CheckpointID", "Zone") := NULL ]
+      print(keys)
+      stats <- sims_stats(pred_obs = pred_obs,
                           keys = keys,
                           col_pred = "pred_VWC",
                           col_obs = "ob_VWC")
