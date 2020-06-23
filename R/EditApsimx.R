@@ -18,6 +18,7 @@ EditLayerKL <- function(layer, value, path, apsimx, saveTo){
   try(if(!dir.exists(saveTo)) stop("Directory to save is not there!",
                                    call. = FALSE))
   origName <- gsub("Modified|.apsimx$", "", basename(apsimx))
+  cat("Processing", origName, ".\r\n")
 
   modifiedName <- file.path(saveTo, paste0(origName, "L", layer, "kl", value, ".apsimx"))
   layer <- as.integer(layer)
