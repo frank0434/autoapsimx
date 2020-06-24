@@ -160,14 +160,17 @@ sims_stats <- function(pred_obs,
 #' @param keys a character vector to define the keys for grouping. three options
 #'   to match the mode:
 #' \itemize{
-#'   \item _Profile_ mode - The default keys are _"Experiment", "SimulationID", "SowingDate","KLR","RFV","SKL"_ for
+#'   \item Profile mode - The default keys are "Experiment", "SimulationID", "SowingDate","KLR","RFV","SKL" for
 #'   soil water profile.
-#'   \item _Layers_ mode - _"Depth"_ should be added into the default keys.
-#'   \item _Manual_ mode - _"Experiment", "SowingDate", "Depth"_ are the keys.
+#'   \item Layers mode - "Depth" should be added into the default keys.
+#'   \item Manual mode - "Experiment", "SowingDate", "Depth" are the keys.
+#'
 #'   }
 #' @param pattern_split regular expression to split two treatment names
 #' @param pattern_trts regular expression to extract the treatment names from
 #'   filename
+#' @param test Test mode - Subset the top 3 db files in the directory to run a
+#'   test
 #'
 #' @import data.table
 #'
@@ -183,11 +186,15 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
                              col_treatment2 = "SowingDate",
                              mode = c("Profile", "Layers","Manual"),
                              keys = c("Experiment", "SimulationID", "SowingDate",
-                                      "KLR","RFV","SKL")){
+                                      "KLR","RFV","SKL"),
+                             test = FALSE){
   # Set up
   t1 <- Sys.time()
   dbs <- list.files(path = path_sims, pattern = pattern, full.names = TRUE)
   # A list to store all the stats results
+  if(isTRUE(test)){
+    dbs <- dbs[1:3]
+  }
   l_stats <- vector("list", length = length(dbs))
   names(l_stats) <- dbs
   no <- 1L
@@ -235,6 +242,7 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
                           col_obs = "ob_VWC")
     } else if(mode == "Manual"){
       layerNo. <- regmatches(basename(i), regexpr("L\\d{1,2}", basename(i)))
+      layerNo. <- ifelse(length(layerNo.) == 0, as.character("L1"), layerNo.)
       layer <- gsub("(L)(\\d{1,2})", "SW\\\\(\\2\\\\)", layerNo.)
       depth_int <- as.integer(gsub("L", "", layerNo.))
       colsofInteresetd <- grep(pattern = layer, colnames(dt), value = TRUE)
