@@ -1,4 +1,44 @@
 
+
+#' subset_stats
+#' @description Unlist the stats result to obtain best fit for each layer and
+#'   join back to the data for further visulisation
+#' @param DT A data.table with two nested list columns: `data` and `stats`.
+#'   Column names `Source, Experiment, SowingDate, Depth` must be in the DT as
+#'   group variables
+#' @import data.table
+#' @return a data.table has the best fit parameter for each layer in each
+#'   treatment.
+#' @export
+#'
+#' @examples
+#' subset_stats(DT = DT_stats_layerKL)
+subset_stats <- function(DT = DT_stats_layerKL){
+  stats = DT[, Source := basename(Source)
+             ][order(Experiment, SowingDate, Depth)]
+  top3 = stats[, unlist(stats, recursive = FALSE), by = .(Source, Experiment, SowingDate, Depth)
+               ][Depth != 1
+                 # & NSE > 0
+                 ][order(NSE,R2, RMSE, decreasing = TRUE),
+                   index := seq_len(.N),
+                   by = list(Experiment, SowingDate, Depth)
+                   ]
+
+  JOINNED = stats[top3[index == 1], on = c("Source", "Experiment","SowingDate","Depth")
+                  ][, unlist(data, recursive = FALSE),
+                    by = .(Source, Experiment, SowingDate, Depth)
+                    ][, kl := regmatches(Source, regexpr("kl0\\.\\d{1,3}", Source, perl = TRUE))]
+
+  id = JOINNED$Source %>% unique()
+  top1stats = stats[Source %in% id
+                    ][, unlist(stats, recursive = FALSE),
+                      by = .(Source, Experiment, SowingDate, Depth)]
+  JOINNED_stats = top1stats[JOINNED, on = "Source"]
+  JOINNED_stats[, ':='(NSE = paste0("NSE=\r\n",NSE),
+                       R2 = paste0("R2=\r\n", R2),
+                       RMSE = paste0("RMSE=\r\n", RMSE))]
+  JOINNED_stats
+}
 #' subset_obs
 #' @description subset the obersvation data based on treatment
 #'
@@ -47,59 +87,113 @@ subset_pred <- function(DT = top5,
 #'
 #' @description
 #'
-#' @param DT
-#' @param title
-#' @param col_pred
-#' @param col_obs
-#' @param point_size
-#' @param Depth default is profile. can be set the "Depth" to check each layer.
-#' @param format
-#' @param width
-#' @param height
+#' @param DT data.table that has predictio and observation data with stats
+#'   resutls
+#' @param title Charater string - Path with file name to save the figure
+#' @param col_pred Charater string - column name for prediction results
+#' @param col_obs Charater string - column name for observation results
+#' @param point_size Integer - the size of the point
+#' @param Depth NULL or charater string to control the facet
+#' \itemize{
+#'   \item Default is Null - water profile.
+#'   \item "Depth" to check each layer.
+#'   \item "Layerkl_distribution" to check the overall distribution of best fit
+#'   kls in each layer
+#'   \item "Layerkl" to check the best fit for each layer with Statistics results
+#'   }
+#' @param format Charater string to indicate output figure format.
+#' @param width Integer. The width of the figure in inches.
+#' @param height Integer. The height of the figure in inches.
+#' @param group_params Charater strings. The strings are column names which will
+#'   be used as facet factor
+#' @param stats TRUE or FALSE. Default is TRUE where NSE r.square and RMSE must
+#'   be in the data.table
 #'
 #' @import ggplot2
 #' @import stringr
 #'
-#' @return
+#' @return No values return to the console. Figures will be output directly into
+#'   the designated folder
 #' @export
 #'
 #' @examples
+#' plot_params(DT = top5, title, format = "pdf", col_pred = "PSWC", col_obs =
+#' "SWC",point_size = 2,Depth = NULL,width = 10, height = 10)
+#'
 plot_params <- function(DT = top5,
                         title, format = "pdf",
                         col_pred = "PSWC",
                         col_obs = "SWC",
+                        group_params = "KLR_RFV_SKL",
+                        stats = TRUE,
                         point_size = 2,
                         Depth = NULL,
                         width = 10, height = 10){
   palette = rep("grey", times = 2)
   palette_named = setNames(palette,  c(col_pred, col_obs))
   palette_named[2] = "red"
-  if(is.null(Depth)){
-    facet_form =  reformulate(".", "KLR_RFV_SKL" )
-  } else if(Depth == "Depth"){
-    facet_form =  reformulate("KLR_RFV_SKL", "Depth" )
 
-  }
   if(is.null(dim(DT)) | nrow(DT) == 0){
     print(paste0(DT, " is empty!!!"))
   } else {
 
-      DT %>%
-        ggplot(aes(Date)) +
-        geom_point(aes(y = get(col_pred), color = names(palette_named)[1]), size = point_size) +
-        geom_point(aes(y = get(col_obs), color = names(palette_named)[2]), size = point_size) +
+     p = DT %>%
+       ggplot(aes(Date)) +
+       geom_line(aes(y = get(col_pred), color = names(palette_named)[1]), size = point_size) +
+       geom_point(aes(y = get(col_obs), color = names(palette_named)[2]), size = point_size) +
+       ggtitle(paste0(unique(DT$Experiment), unique(DT$SowingDate))) +
+       scale_x_date(date_labels = "%Y %b", date_breaks = "4 weeks") +
+       scale_color_manual(name = "", values = palette_named) +
+       theme_water() +
+       theme(legend.position = "top",
+             axis.text.x = element_text(angle = 30, hjust = 1))
+  }
+  if(is.null(Depth)){
+    facet_form =  reformulate(".", group_params )
+    if(isTRUE(stats)){
+      p +
         geom_text(aes(x = as.Date("2011-07-01"), y = median(DT[[col_pred]]),
                       label = paste0("NSE = ", NSE,
                                      "\r\nR.square = ", R2,
                                      "\r\nRMSE = ", RMSE)),inherit.aes = FALSE)+
         facet_grid( facet_form) +
-        ggtitle(paste0(unique(DT$Experiment), unique(DT$SowingDate))) +
-        scale_x_date(date_labels = "%Y %b", date_breaks = "4 weeks") +
-        scale_color_manual(name = "", values = palette_named) +
-        theme_water() +
-        theme(legend.position = "top",
-              axis.text.x = element_text(angle = 30, hjust = 1)) +
-        ggsave(stringr::str_glue("{title}.{format}"), width = width, height = height, dpi = 300)
+        ggsave(stringr::str_glue("{title}.{format}"),
+               width = width, height = height, dpi = 300)
+    } else {
+      p +
+        facet_grid( facet_form) +
+        ggsave(stringr::str_glue("{title}.{format}"),
+               width = width, height = height, dpi = 300)
     }
 
+  } else if(Depth == "Depth"){
+    facet_form =  reformulate(group_params, "Depth" )
+    if(isTRUE(stats)){
+      p +
+        geom_text(aes(x = as.Date("2011-07-01"), y = median(DT[[col_pred]]),
+                      label = paste0("NSE = ", NSE,
+                                     "\r\nR.square = ", R2,
+                                     "\r\nRMSE = ", RMSE)),inherit.aes = FALSE)+
+        facet_grid( facet_form) +
+        ggsave(stringr::str_glue("{title}.{format}"),
+               width = width, height = height, dpi = 300)
+    } else {
+      p +
+        facet_grid( facet_form) +
+        ggsave(stringr::str_glue("{title}.{format}"),
+               width = width, height = height, dpi = 300)
+    }
+  } else if(Depth == "Layerkl_distribution"){
+    facet_form =  reformulate("kl", "Depth" )
+    p +
+      facet_grid( facet_form) +
+      ggsave(stringr::str_glue("{title}.{format}"),
+             width = width, height = height, dpi = 300)
+  } else if(Depth == "Layerkl"){
+    facet_form =  reformulate(".", "Depth + kl + NSE + RMSE + R2" )
+    p +
+      facet_grid( facet_form) +
+      ggsave(stringr::str_glue("{title}.{format}"),
+             width = width, height = height, dpi = 300)
+  }
 }
