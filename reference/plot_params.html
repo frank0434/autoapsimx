@@ -139,6 +139,8 @@
   format = <span class='st'>"pdf"</span>,
   col_pred = <span class='st'>"PSWC"</span>,
   col_obs = <span class='st'>"SWC"</span>,
+  group_params = <span class='st'>"KLR_RFV_SKL"</span>,
+  stats = <span class='fl'>TRUE</span>,
   point_size = <span class='fl'>2</span>,
   Depth = <span class='kw'>NULL</span>,
   width = <span class='fl'>10</span>,
@@ -149,21 +151,68 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>DT</th>
+      <td><p>data.table that has predictio and observation data with stats
+resutls</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>Charater string - Path with file name to save the figure</p></td>
+    </tr>
+    <tr>
+      <th>format</th>
+      <td><p>Charater string to indicate output figure format.</p></td>
+    </tr>
+    <tr>
+      <th>col_pred</th>
+      <td><p>Charater string - column name for prediction results</p></td>
+    </tr>
+    <tr>
+      <th>col_obs</th>
+      <td><p>Charater string - column name for observation results</p></td>
+    </tr>
+    <tr>
+      <th>group_params</th>
+      <td><p>Charater strings. The strings are column names which will
+be used as facet factor</p></td>
+    </tr>
+    <tr>
+      <th>stats</th>
+      <td><p>TRUE or FALSE. Default is TRUE where NSE r.square and RMSE must
+be in the data.table</p></td>
+    </tr>
+    <tr>
+      <th>point_size</th>
+      <td><p>Integer - the size of the point</p></td>
+    </tr>
+    <tr>
       <th>Depth</th>
-      <td><p>default is profile. can be set the "Depth" to check each layer.</p></td>
+      <td><p>NULL or charater string to control the facet</p><ul>
+<li><p>Default is Null - water profile.</p></li>
+<li><p>"Depth" to check each layer.</p></li>
+<li><p>"Layerkl_distribution" to check the overall distribution of best fit
+  kls in each layer</p></li>
+<li><p>"Layerkl" to check the best fit for each layer with Statistics results</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p>Integer. The width of the figure in inches.</p></td>
     </tr>
     <tr>
       <th>height</th>
-      <td></td>
+      <td><p>Integer. The height of the figure in inches.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
+    <p>No values return to the console. Figures will be output directly into
+  the designated folder</p>
 
-
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>plot_params</span>(DT = <span class='kw'>top5</span>, <span class='kw'>title</span>, format = <span class='st'>"pdf"</span>, col_pred = <span class='st'>"PSWC"</span>, col_obs =
+<span class='st'>"SWC"</span>,point_size = <span class='fl'>2</span>,Depth = <span class='kw'>NULL</span>,width = <span class='fl'>10</span>, height = <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot_params(DT = top5, title, format = "pdf", col_pred = "PSWC",     col_obs = "SWC", point_size = 2, Depth = NULL, width = 10,     height = 10): object 'top5' not found</span></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
