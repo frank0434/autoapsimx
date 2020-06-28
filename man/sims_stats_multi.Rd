@@ -14,7 +14,8 @@ sims_stats_multi(
   col_treatment1 = "Experiment",
   col_treatment2 = "SowingDate",
   mode = c("Profile", "Layers", "Manual"),
-  keys = c("Experiment", "SimulationID", "SowingDate", "KLR", "RFV", "SKL")
+  keys = c("Experiment", "SimulationID", "SowingDate", "KLR", "RFV", "SKL"),
+  test = FALSE
 )
 }
 \arguments{
@@ -49,11 +50,15 @@ filename}
 \item{keys}{a character vector to define the keys for grouping. three options
   to match the mode:
 \itemize{
-  \item _Profile_ mode - The default keys are _"Experiment", "SimulationID", "SowingDate","KLR","RFV","SKL"_ for
+  \item Profile mode - The default keys are "Experiment", "SimulationID", "SowingDate","KLR","RFV","SKL" for
   soil water profile.
-  \item _Layers_ mode - _"Depth"_ should be added into the default keys.
-  \item _Manual_ mode - _"Experiment", "SowingDate", "Depth"_ are the keys.
+  \item Layers mode - "Depth" should be added into the default keys.
+  \item Manual mode - "Experiment", "SowingDate", "Depth" are the keys.
+
   }}
+
+\item{test}{Test mode - Subset the top 3 db files in the directory to run a
+test}
 }
 \value{
 a list

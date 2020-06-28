@@ -10,6 +10,8 @@ plot_params(
   format = "pdf",
   col_pred = "PSWC",
   col_obs = "SWC",
+  group_params = "KLR_RFV_SKL",
+  stats = TRUE,
   point_size = 2,
   Depth = NULL,
   width = 10,
@@ -17,13 +19,47 @@ plot_params(
 )
 }
 \arguments{
-\item{Depth}{default is profile. can be set the "Depth" to check each layer.}
+\item{DT}{data.table that has predictio and observation data with stats
+resutls}
 
-\item{height}{}
+\item{title}{Charater string - Path with file name to save the figure}
+
+\item{format}{Charater string to indicate output figure format.}
+
+\item{col_pred}{Charater string - column name for prediction results}
+
+\item{col_obs}{Charater string - column name for observation results}
+
+\item{group_params}{Charater strings. The strings are column names which will
+be used as facet factor}
+
+\item{stats}{TRUE or FALSE. Default is TRUE where NSE r.square and RMSE must
+be in the data.table}
+
+\item{point_size}{Integer - the size of the point}
+
+\item{Depth}{NULL or charater string to control the facet
+\itemize{
+  \item Default is Null - water profile.
+  \item "Depth" to check each layer.
+  \item "Layerkl_distribution" to check the overall distribution of best fit
+  kls in each layer
+  \item "Layerkl" to check the best fit for each layer with Statistics results
+  }}
+
+\item{width}{Integer. The width of the figure in inches.}
+
+\item{height}{Integer. The height of the figure in inches.}
 }
 \value{
-
+No values return to the console. Figures will be output directly into
+  the designated folder
 }
 \description{
+
+}
+\examples{
+plot_params(DT = top5, title, format = "pdf", col_pred = "PSWC", col_obs =
+"SWC",point_size = 2,Depth = NULL,width = 10, height = 10)
 
 }
