@@ -4,12 +4,8 @@
 \alias{sims_stats}
 \title{sims_stats}
 \usage{
-sims_stats(
-  pred_obs,
-  keys = c("Experiment", "SimulationID", "SowingDate", "KLR", "RFV", "SKL"),
-  col_pred = "PSWC",
-  col_obs = "SWC"
-)
+sims_stats(pred_obs, keys = c("Experiment", "SimulationID", "SowingDate",
+  "KLR", "RFV", "SKL"), col_pred = "PSWC", col_obs = "SWC")
 }
 \arguments{
 \item{pred_obs}{a data.table which merged from the simulation table and
@@ -20,9 +16,6 @@ observation data.table}
 \item{col_pred}{the colname for prediction result}
 
 \item{col_obs}{the colname for observation}
-}
-\value{
-
 }
 \description{
 Process one kl set with six KLR and six RFV

@@ -11,9 +11,6 @@ DUL_LL(x, thickness)
 
 \item{thickness}{}
 }
-\value{
-
-}
 \description{
 DUL_LL
 }

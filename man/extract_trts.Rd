@@ -4,11 +4,8 @@
 \alias{extract_trts}
 \title{extract_trts}
 \usage{
-extract_trts(
-  filename,
-  pattern = "(Ashley|Iversen).+SD\\\\d{1,2}",
-  pattern_split = "(.+)(SD\\\\d{1,2})"
-)
+extract_trts(filename, pattern = "(Ashley|Iversen).+SD\\\\d{1,2}",
+  pattern_split = "(.+)(SD\\\\d{1,2})")
 }
 \arguments{
 \item{filename}{a string or a full path of the db name}
