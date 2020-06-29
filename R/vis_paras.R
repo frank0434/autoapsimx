@@ -39,49 +39,48 @@ subset_stats <- function(DT = DT_stats_layerKL){
                        RMSE = paste0("RMSE=\r\n", RMSE))]
   JOINNED_stats
 }
-#' subset_obs
-#' @description subset the obersvation data based on treatment
+#' subsetByTreatment
+#' @description Subset the observation/prediction data based on treatment.
+#'   Current version can only do two treatment subset.
 #'
-#' @param DT
-#' @param col_treatment1
-#' @param col_treatment2
-#' @param treatment1
-#' @param treatment2
+#' @param DT Data.table. The data.table contains observation or prediction
+#'   values for all treatments.
+#' @param col_treatment1 Character string. The column name for treatment 1
+#' @param col_treatment2 Character string. The column name for treatment 2
+#' @param treatment1 The treatment value that wants to be subset.
+#' @param treatment2 The treatment value that wants to be subset.
+#' @param mode Default NULL is subset
 #'
-#' @return
+#' @return A filtered data.table.
+#'
 #' @export
 #'
 #' @examples
-subset_obs <-  function(DT = SW_mean,
-                        col_treatment1 = "Experiment",
-                        col_treatment2 = "SowingDate",
-                        treatment1, treatment2){
-  DT = DT[get(col_treatment1) == treatment1 & get(col_treatment2) == treatment2]
-  DT
+#' subsetByTreatment(DT = SW_mean,
+#'                   col_treatment1 = "Experiment",
+#'                   col_treatment2 = "SowingDate",
+#'                   treatment1 = "Iversen12",
+#'                   treatment2 = "SD1")
+subsetByTreatment <-  function(DT = SW_mean, mode = NULL,
+                               col_treatment1 = "Experiment",
+                               col_treatment2 = "SowingDate",
+                               treatment1 = "Iversen12",
+                               treatment2 = "SD1"){
+
+  if(isTRUE(mode == "prediction") && c("SKL", "KLR", "RFV") %in% colnames(DT)){
+    DT = DT[, KLR_RFV_SKL := paste0("klReduction=", KLR,
+                                    "\r\n", "RFV=", RFV,
+                                    "\r\n", "SKL=", SKL)
+            ][get(col_treatment1) == treatment1 & get(col_treatment2) == treatment2]
+    DT
+  } else if(isTRUE(mode == "prediction") | isTRUE(mode == "observation") | is.null(mode)){
+
+    DT = DT[get(col_treatment1) == treatment1 & get(col_treatment2) == treatment2]
+    DT
+  }
+
 }
-#' subset_pred
-#'
-#' @param DT
-#' @param col_treatment1
-#' @param col_treatment2
-#' @param treatment1
-#' @param treatment2
-#'
-#' @import data.table
-#' @return
-#' @export
-#'
-#' @examples
-subset_pred <- function(DT = top5,
-                          col_treatment1 = "Experiment",
-                          col_treatment2 = "SowingDate",
-                          treatment1, treatment2){
-  DT = DT[, KLR_RFV_SKL := paste0("klReduction=", KLR,
-                                  "\r\n", "RFV=", RFV,
-                                  "\r\n", "SKL=", SKL)
-          ][get(col_treatment1) == treatment1 & get(col_treatment2) == treatment2]
-  DT
-}
+
 
 #' plot_params
 #'
