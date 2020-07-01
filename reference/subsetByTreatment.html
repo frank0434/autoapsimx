@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • autoapsimx</title>
+<title>subsetByTreatment — subsetByTreatment • autoapsimx</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="subsetByTreatment — subsetByTreatment" />
+<meta property="og:description" content="Subset the observation/prediction data based on treatment.
+  Current version can only do two treatment subset." />
 
 
 
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -117,114 +119,68 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>subsetByTreatment</h1>
+    <small class="dont-index">Source: <a href='https://github.com/frank0434/autoapsimx/blob/master/R/vis_paras.R'><code>R/vis_paras.R</code></a></small>
+    <div class="hidden name"><code>subsetByTreatment.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Subset the observation/prediction data based on treatment.
+  Current version can only do two treatment subset.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>subsetByTreatment</span>(
+  DT = <span class='kw'>SW_mean</span>,
+  mode = <span class='kw'>NULL</span>,
+  col_treatment1 = <span class='st'>"Experiment"</span>,
+  col_treatment2 = <span class='st'>"SowingDate"</span>,
+  treatment1 = <span class='st'>"Iversen12"</span>,
+  treatment2 = <span class='st'>"SD1"</span>
+)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="DUL_LL.html">DUL_LL()</a></code> </p>
-        </td>
-        <td><p>DUL_LL</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="EditLayerKL.html">EditLayerKL()</a></code> </p>
-        </td>
-        <td><p>EditLayerKL</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="cat_ParaValue.html">cat_ParaValue()</a></code> </p>
-        </td>
-        <td><p>cat_ParaValue</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="extract_trts.html">extract_trts()</a></code> </p>
-        </td>
-        <td><p>extract_trts</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="manipulate.html">manipulate()</a></code> </p>
-        </td>
-        <td><p>manipulate</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_params.html">plot_params()</a></code> </p>
-        </td>
-        <td><p>plot_params</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read_dbtab.html">read_dbtab()</a></code> </p>
-        </td>
-        <td><p>read_dbtab</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read_met.html">read_met()</a></code> </p>
-        </td>
-        <td><p>read_met</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read_met_col.html">read_met_col()</a></code> </p>
-        </td>
-        <td><p>read_met_col</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sims_stats.html">sims_stats()</a></code> </p>
-        </td>
-        <td><p>sims_stats</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sims_stats_multi.html">sims_stats_multi()</a></code> </p>
-        </td>
-        <td><p>sims_stats_multi</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="subsetByTreatment.html">subsetByTreatment()</a></code> </p>
-        </td>
-        <td><p>subsetByTreatment</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="subset_stats.html">subset_stats()</a></code> </p>
-        </td>
-        <td><p>subset_stats</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>DT</th>
+      <td><p>Data.table. The data.table contains observation or prediction
+values for all treatments.</p></td>
+    </tr>
+    <tr>
+      <th>mode</th>
+      <td><p>Default NULL is subset</p></td>
+    </tr>
+    <tr>
+      <th>col_treatment1</th>
+      <td><p>Character string. The column name for treatment 1</p></td>
+    </tr>
+    <tr>
+      <th>col_treatment2</th>
+      <td><p>Character string. The column name for treatment 2</p></td>
+    </tr>
+    <tr>
+      <th>treatment1</th>
+      <td><p>The treatment value that wants to be subset.</p></td>
+    </tr>
+    <tr>
+      <th>treatment2</th>
+      <td><p>The treatment value that wants to be subset.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A filtered data.table.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>subsetByTreatment</span>(DT = <span class='kw'>SW_mean</span>,
+                  col_treatment1 = <span class='st'>"Experiment"</span>,
+                  col_treatment2 = <span class='st'>"SowingDate"</span>,
+                  treatment1 = <span class='st'>"Iversen12"</span>,
+                  treatment2 = <span class='st'>"SD1"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in subsetByTreatment(DT = SW_mean, col_treatment1 = "Experiment",     col_treatment2 = "SowingDate", treatment1 = "Iversen12",     treatment2 = "SD1"): object 'SW_mean' not found</span></div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
