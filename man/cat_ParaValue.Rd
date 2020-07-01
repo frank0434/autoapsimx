@@ -11,8 +11,13 @@ cat_ParaValue(parameter, values)
 
 \item{values}{a string of values that are separated by comma}
 }
+\value{
+Character string. The string is the path of apsimx submodule and
+  value pair
+}
 \description{
-cat_ParaValue
+A wrapper function of `paste` to construct configuration values
+  for `ApsimX` Edit feature.
 }
 \details{
 when replace the number of values must match the number of layers

@@ -16,7 +16,7 @@
 subset_stats <- function(DT = DT_stats_layerKL){
   stats = DT[, Source := basename(Source)
              ][order(Experiment, SowingDate, Depth)]
-  top3 = stats[, unlist(stats, recursive = FALSE), by = .(Source, Experiment, SowingDate, Depth)
+  top3 = stats[, unlist(stats, recurse = FALSE), by = .(Source, Experiment, SowingDate, Depth)
                ][Depth != 1
                  # & NSE > 0
                  ][order(NSE,R2, RMSE, decreasing = TRUE),
@@ -25,13 +25,13 @@ subset_stats <- function(DT = DT_stats_layerKL){
                    ]
 
   JOINNED = stats[top3[index == 1], on = c("Source", "Experiment","SowingDate","Depth")
-                  ][, unlist(data, recursive = FALSE),
+                  ][, unlist(data, recurse = FALSE),
                     by = .(Source, Experiment, SowingDate, Depth)
                     ][, kl := regmatches(Source, regexpr("kl0\\.\\d{1,3}", Source, perl = TRUE))]
 
   id = JOINNED$Source %>% unique()
   top1stats = stats[Source %in% id
-                    ][, unlist(stats, recursive = FALSE),
+                    ][, unlist(stats, recurse = FALSE),
                       by = .(Source, Experiment, SowingDate, Depth)]
   JOINNED_stats = top1stats[JOINNED, on = "Source"]
   JOINNED_stats[, ':='(NSE = paste0("NSE=\r\n",NSE),

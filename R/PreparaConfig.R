@@ -1,10 +1,13 @@
 
 #' cat_ParaValue
+#' @description A wrapper function of `paste` to construct configuration values
+#'   for `ApsimX` Edit feature.
 #'
 #' @param parameter the address to the parameter that needs to be modified
 #' @param values a string of values that are separated by comma
 #'
-#' @return
+#' @return Character string. The string is the path of apsimx submodule and
+#'   value pair
 #' @export
 #'
 #' @details when replace the number of values must match the number of layers

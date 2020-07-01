@@ -4,13 +4,19 @@
 \alias{sims_stats_multi}
 \title{sims_stats_multi}
 \usage{
-sims_stats_multi(path_sims, pattern = ".db$", DT_observation,
+sims_stats_multi(
+  path_sims,
+  pattern = ".db$",
+  DT_observation,
   tableName = "Report",
   pattern_trts = "(Ashley|Iversen).+SD\\\\d{1,2}",
-  pattern_split = "(.+)(SD\\\\d{1,2})", col_treatment1 = "Experiment",
-  col_treatment2 = "SowingDate", mode = c("Profile", "Layers",
-  "Manual"), keys = c("Experiment", "SimulationID", "SowingDate", "KLR",
-  "RFV", "SKL"), test = FALSE)
+  pattern_split = "(.+)(SD\\\\d{1,2})",
+  col_treatment1 = "Experiment",
+  col_treatment2 = "SowingDate",
+  mode = c("Profile", "Layers", "Manual"),
+  keys = c("Experiment", "SimulationID", "SowingDate", "KLR", "RFV", "SKL"),
+  test = FALSE
+)
 }
 \arguments{
 \item{path_sims}{The path to all apsimx output}

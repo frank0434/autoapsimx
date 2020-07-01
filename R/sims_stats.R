@@ -133,7 +133,7 @@ sims_stats <- function(pred_obs,
         transpose(make.names = 'rn')
     })]
     # 6 Unnest the data.table
-    # stats <- nested[, unlist(stats, recursive = FALSE), by = key(DT)]
+    # stats <- nested[, unlist(stats, recurse = FALSE), by = key(DT)]
     nested
   }
 

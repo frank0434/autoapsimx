@@ -4,8 +4,12 @@
 \alias{sims_stats}
 \title{sims_stats}
 \usage{
-sims_stats(pred_obs, keys = c("Experiment", "SimulationID", "SowingDate",
-  "KLR", "RFV", "SKL"), col_pred = "PSWC", col_obs = "SWC")
+sims_stats(
+  pred_obs,
+  keys = c("Experiment", "SimulationID", "SowingDate", "KLR", "RFV", "SKL"),
+  col_pred = "PSWC",
+  col_obs = "SWC"
+)
 }
 \arguments{
 \item{pred_obs}{a data.table which merged from the simulation table and

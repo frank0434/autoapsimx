@@ -4,9 +4,14 @@
 \alias{subsetByTreatment}
 \title{subsetByTreatment}
 \usage{
-subsetByTreatment(DT = SW_mean, mode = NULL,
-  col_treatment1 = "Experiment", col_treatment2 = "SowingDate",
-  treatment1 = "Iversen12", treatment2 = "SD1")
+subsetByTreatment(
+  DT = SW_mean,
+  mode = NULL,
+  col_treatment1 = "Experiment",
+  col_treatment2 = "SowingDate",
+  treatment1 = "Iversen12",
+  treatment2 = "SD1"
+)
 }
 \arguments{
 \item{DT}{Data.table. The data.table contains observation or prediction
