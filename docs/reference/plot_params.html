@@ -8,29 +8,21 @@
 
 <title>plot_params — plot_params • autoapsimx</title>
 
-
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
-
-<!-- bootstrap-toc -->
-<link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,10 +30,10 @@
 
 
 
-
 <meta property="og:title" content="plot_params — plot_params" />
-<meta property="og:description" content="plot_params" />
 
+<meta property="og:description" content="" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -55,10 +47,9 @@
 <![endif]-->
 
 
-
   </head>
 
-  <body data-spy="scroll" data-target="#toc">
+  <body>
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -80,7 +71,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -100,10 +91,11 @@
   </ul>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/frank0434/autoapsimx/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/frank0434/autoapsimx">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -114,7 +106,6 @@
 </div><!--/.navbar -->
 
       
-
       </header>
 
 <div class="row">
@@ -126,34 +117,96 @@
     </div>
 
     <div class="ref-description">
-    <p>plot_params</p>
+    
+    
+    
     </div>
 
-    <pre class="usage"><span class='fu'>plot_params</span>(<span class='kw'>DT</span> <span class='kw'>=</span> <span class='no'>top5</span>, <span class='no'>title</span>, <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
-
+    <pre class="usage"><span class='fu'>plot_params</span>(<span class='kw'>DT</span> <span class='kw'>=</span> <span class='no'>top5</span>, <span class='no'>title</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"pdf"</span>, <span class='kw'>col_pred</span> <span class='kw'>=</span> <span class='st'>"PSWC"</span>,
+  <span class='kw'>col_obs</span> <span class='kw'>=</span> <span class='st'>"SWC"</span>, <span class='kw'>group_params</span> <span class='kw'>=</span> <span class='st'>"KLR_RFV_SKL"</span>, <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>Depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>DT</th>
+      <td><p>data.table that has predictio and observation data with stats
+resutls</p></td>
+    </tr>
+    <tr>
       <th>title</th>
-      <td></td>
+      <td><p>Charater string - Path with file name to save the figure</p></td>
+    </tr>
+    <tr>
+      <th>format</th>
+      <td><p>Charater string to indicate output figure format.</p></td>
+    </tr>
+    <tr>
+      <th>col_pred</th>
+      <td><p>Charater string - column name for prediction results</p></td>
+    </tr>
+    <tr>
+      <th>col_obs</th>
+      <td><p>Charater string - column name for observation results</p></td>
+    </tr>
+    <tr>
+      <th>group_params</th>
+      <td><p>Charater strings. The strings are column names which will
+be used as facet factor</p></td>
+    </tr>
+    <tr>
+      <th>stats</th>
+      <td><p>TRUE or FALSE. Default is TRUE where NSE r.square and RMSE must
+be in the data.table</p></td>
+    </tr>
+    <tr>
+      <th>point_size</th>
+      <td><p>Integer - the size of the point</p></td>
+    </tr>
+    <tr>
+      <th>Depth</th>
+      <td><p>NULL or charater string to control the facet</p><ul>
+<li><p>Default is Null - water profile.</p></li>
+<li><p>"Depth" to check each layer.</p></li>
+<li><p>"Layerkl_distribution" to check the overall distribution of best fit
+  kls in each layer</p></li>
+<li><p>"Layerkl" to check the best fit for each layer with Statistics results</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p>Integer. The width of the figure in inches.</p></td>
+    </tr>
+    <tr>
+      <th>height</th>
+      <td><p>Integer. The height of the figure in inches.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>No values return to the console. Figures will be output directly into
+  the designated folder</p>
     
 
-
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>plot_params</span>(<span class='kw'>DT</span> <span class='kw'>=</span> <span class='no'>top5</span>, <span class='no'>title</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"pdf"</span>, <span class='kw'>col_pred</span> <span class='kw'>=</span> <span class='st'>"PSWC"</span>, <span class='kw'>col_obs</span> <span class='kw'>=</span>
+<span class='st'>"SWC"</span>,<span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>2</span>,<span class='kw'>Depth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot_params(DT = top5, title, format = "pdf", col_pred = "PSWC",     col_obs = "SWC", point_size = 2, Depth = NULL, width = 10,     height = 10): object 'top5' not found</span></div><div class='input'>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
-      <h2 data-toc-skip>Contents</h2>
-    </nav>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
-
 
       <footer>
       <div class="copyright">
@@ -161,16 +214,13 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
-
       </footer>
    </div>
 
   
 
-
   </body>
 </html>
-
 
