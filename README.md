@@ -7,4 +7,22 @@
 
 Automating the Pipeline of the ApsimX Model Development 
 
-![](data/Pipeline.png)
+![](man/figures/Pipeline.png)
+
+
+## Installation
+
+You can install the develop version of autoapsimx from [Github](https://github.com/frank0434/autoapsimx) with:
+
+``` r
+remotes::install_github("frank0434/autoapsimx")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(autoapsimx)
+```
+
