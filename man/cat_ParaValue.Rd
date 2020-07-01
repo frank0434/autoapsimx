@@ -11,6 +11,9 @@ cat_ParaValue(parameter, values)
 
 \item{values}{a string of values that are separated by comma}
 }
+\value{
+
+}
 \description{
 cat_ParaValue
 }

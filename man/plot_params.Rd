@@ -4,9 +4,19 @@
 \alias{plot_params}
 \title{plot_params}
 \usage{
-plot_params(DT = top5, title, format = "pdf", col_pred = "PSWC",
-  col_obs = "SWC", group_params = "KLR_RFV_SKL", stats = TRUE,
-  point_size = 2, Depth = NULL, width = 10, height = 10)
+plot_params(
+  DT = top5,
+  title,
+  format = "pdf",
+  col_pred = "PSWC",
+  col_obs = "SWC",
+  group_params = "KLR_RFV_SKL",
+  stats = TRUE,
+  point_size = 2,
+  Depth = NULL,
+  width = 10,
+  height = 10
+)
 }
 \arguments{
 \item{DT}{data.table that has predictio and observation data with stats

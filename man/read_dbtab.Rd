@@ -4,13 +4,15 @@
 \alias{read_dbtab}
 \title{read_dbtab}
 \usage{
-read_dbtab(path = "./03processed-data/Richard.sqlite3",
-  table = "SoilWater")
+read_dbtab(path = "./03processed-data/Richard.sqlite3", table = "SoilWater")
 }
 \arguments{
 \item{path}{the path to the sqlite file}
 
 \item{table}{a charater string for the table name}
+}
+\value{
+
 }
 \description{
 Connet to `sqlite3` file and read a specific table and convert
