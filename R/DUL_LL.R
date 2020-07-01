@@ -1,9 +1,13 @@
 #' DUL_LL
-#' @description
-#' @param x a numeric vector. Soil water
-#' @param thickness
+#' @description A wrapper function to be used in data.table syntax with lappy.
+#'   `DUL_LL` function will find the maximum and minimum water content (mm) in a
+#'   given layer of soil and return its volumn metric content.
 #'
-#' @return
+#'
+#' @param x A numeric vector. Soil water
+#' @param thickness Integer. The depth of a given soil layer in mm.
+#'
+#' @return Max and Min VWC
 #' @export
 #'
 

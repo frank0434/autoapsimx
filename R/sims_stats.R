@@ -39,7 +39,7 @@ extract_trts <- function(filename,
 #' @param table a charater string for the table name
 #' @import DBI
 #' @import RSQLite
-#' @return
+#' @return A data.table has simulation results.
 #' @export
 #' @import data.table
 #' @examples
@@ -104,7 +104,7 @@ manipulate <- function(DT_obs = obs, redundant_cols = NULL,  DT_pred = dt){
 #' @import data.table
 #' @import hydroGOF
 #'
-#' @return
+#' @return A data table with two nested columns: `data` and `stats`.
 #' @export
 #'
 #' @examples

@@ -7,10 +7,15 @@
 DUL_LL(x, thickness)
 }
 \arguments{
-\item{x}{a numeric vector. Soil water}
+\item{x}{A numeric vector. Soil water}
 
-\item{thickness}{}
+\item{thickness}{Integer. The depth of a given soil layer in mm.}
+}
+\value{
+Max and Min VWC
 }
 \description{
-DUL_LL
+A wrapper function to be used in data.table syntax with lappy.
+  `DUL_LL` function will find the maximum and minimum water content (mm) in a
+  given layer of soil and return its volumn metric content.
 }

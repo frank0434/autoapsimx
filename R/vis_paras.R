@@ -132,8 +132,14 @@ plot_params <- function(DT = top5,
   palette_named = setNames(palette,  c(col_pred, col_obs))
   palette_named[2] = "red"
 
-  if(is.null(dim(DT)) | nrow(DT) == 0){
-    print(paste0(DT, " is empty!!!"))
+
+
+  if(is.null(dim(DT)) | isTRUE(nrow(DT) == 0)){
+    print("The data table is empty!!!")
+  } else if(! col_pred %in% colnames(DT)){
+    cat(col_pred, "is not in the data.table! \r\n")
+  } else if(! col_obs %in% colnames(DT)){
+    cat( "is not in the data table! \r\n")
   } else {
 
      p = DT %>%
@@ -146,7 +152,7 @@ plot_params <- function(DT = top5,
        theme_water() +
        theme(legend.position = "top",
              axis.text.x = element_text(angle = 30, hjust = 1))
-  }
+
   if(is.null(Depth)){
     facet_form =  reformulate(".", group_params )
     if(isTRUE(stats)){
@@ -194,5 +200,6 @@ plot_params <- function(DT = top5,
       facet_grid( facet_form) +
       ggsave(stringr::str_glue("{title}.{format}"),
              width = width, height = height, dpi = 300)
+  }
   }
 }

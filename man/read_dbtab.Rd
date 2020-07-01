@@ -12,6 +12,9 @@ read_dbtab(path = "./03processed-data/Richard.sqlite3",
 
 \item{table}{a charater string for the table name}
 }
+\value{
+A data.table has simulation results.
+}
 \description{
 Connet to `sqlite3` file and read a specific table and convert
   the date string to a date type

@@ -17,6 +17,9 @@ observation data.table}
 
 \item{col_obs}{the colname for observation}
 }
+\value{
+A data table with two nested columns: `data` and `stats`.
+}
 \description{
 Process one kl set with six KLR and six RFV
 }
