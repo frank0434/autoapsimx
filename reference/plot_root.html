@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>cat_ParaValue — cat_ParaValue • autoapsimx</title>
+<title>Title — plot_root • autoapsimx</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="cat_ParaValue — cat_ParaValue" />
-<meta property="og:description" content="A wrapper function of `paste` to construct configuration values
-  for `ApsimX` Edit feature." />
+<meta property="og:title" content="Title — plot_root" />
+<meta property="og:description" content="Title" />
 <meta property="og:image" content="https://frank0434.github.io/autoapsimx/logo.png" />
 
 
@@ -129,39 +128,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>cat_ParaValue</h1>
-    <small class="dont-index">Source: <a href='https://github.com/frank0434/autoapsimx/blob/master/R/PreparaConfig.R'><code>R/PreparaConfig.R</code></a></small>
-    <div class="hidden name"><code>cat_ParaValue.Rd</code></div>
+    <h1>Title</h1>
+    <small class="dont-index">Source: <a href='https://github.com/frank0434/autoapsimx/blob/master/R/vis_paras.R'><code>R/vis_paras.R</code></a></small>
+    <div class="hidden name"><code>plot_root.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A wrapper function of `paste` to construct configuration values
-  for `ApsimX` Edit feature.</p>
+    <p>Title</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cat_ParaValue</span>(<span class='kw'>parameter</span>, <span class='kw'>values</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_root</span>(
+  DT = <span class='kw'>top1</span>,
+  <span class='kw'>title</span>,
+  format = <span class='st'>"pdf"</span>,
+  col_pred = <span class='st'>"PSWC"</span>,
+  col_obs = <span class='st'>"SWC"</span>,
+  point_size = <span class='fl'>2</span>,
+  Depth = <span class='kw'>NULL</span>,
+  width = <span class='fl'>10</span>,
+  height = <span class='fl'>10</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>parameter</th>
-      <td><p>the address to the parameter that needs to be modified</p></td>
+      <th>DT</th>
+      <td><p>data.table that has predictio and observation data with stats</p></td>
     </tr>
     <tr>
-      <th>values</th>
-      <td><p>a string of values that are separated by comma</p></td>
+      <th>height</th>
+      <td></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Character string. The string is the path of apsimx submodule and
-  value pair</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    
 
-    <p>when replace the number of values must match the number of layers
-soil parameters.</p>
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
