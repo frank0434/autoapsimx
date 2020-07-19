@@ -203,3 +203,60 @@ plot_params <- function(DT = top5,
   }
   }
 }
+
+
+#' Title
+#'
+#' @param DT data.table that has predictio and observation data with stats
+#' @param title
+#' @param format
+#' @param col_pred
+#' @param col_obs
+#' @param point_size
+#' @param Depth
+#' @param width
+#' @param height
+#'
+#' @return
+#' @export
+#'
+#' @examples
+plot_root <- function(DT = top1,
+                      title, format = "pdf",
+                      col_pred = "PSWC",
+                      col_obs = "SWC",
+                      point_size = 2,
+                      Depth = NULL,
+                      width = 10, height = 10){
+  if(is.null(dim(DT)) | isTRUE(nrow(DT) == 0)){
+    print("The data table is empty!!!")
+  } else if(! col_pred %in% colnames(DT)){
+    cat(col_pred, "is not in the data.table! \r\n")
+  } else if(! col_obs %in% colnames(DT)){
+    cat( "is not in the data table! \r\n")
+  } else {
+  cf = 2300/max(DT$PSWC)
+  col_pred = "PSWC"
+  palette = rep("black", times = 3)
+  palette_named = setNames(palette,  c("PSWC", "RootDepth","SWC"))
+  palette_named[2:3] = c("blue", "red")
+  shapes = c(95, 124, 16)
+  shapes_named = setNames(shapes, c("PSWC", "RootDepth","SWC"))
+  DT[,.(Date, PSWC,SWC, RootDepth)] %>%
+    ggplot(aes(Date)) +
+    geom_line(aes(y = PSWC), size = 1, show.legend = NA) +
+    geom_point(aes(y = SWC, color = "SWC", shape = "SWC"), show.legend = NA) +
+    theme_water() +
+    scale_x_date(date_labels = "%Y %b", date_breaks = "8 weeks") +
+    geom_point(aes(y=RootDepth/cf, color="RootDepth", shape = 'RootDepth'),
+               size = 5,show.legend = NA)+
+    scale_y_continuous(limits = range(DT$PSWC),
+                       sec.axis = sec_axis(~ . *cf, name = "Root Depth")) +
+    scale_shape_manual(name = "",values = shapes_named)+
+    theme(legend.position = c(0.1,0.1)) +
+    scale_color_manual(name = "",values = palette_named) +
+    ggsave(stringr::str_glue("{title}.{format}"),
+           width = width, height = height, dpi = 300)
+  }
+
+}
