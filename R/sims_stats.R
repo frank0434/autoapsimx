@@ -85,7 +85,7 @@ manipulate <- function(DT_obs = obs, redundant_cols = NULL,  DT_pred = dt){
         cols <- redundant_cols
       }
     pred_swc <- DT_pred[, (cols) :=  NULL][order(SimulationID)]
-    pred_obs <- pred_swc[DT_obs, on = c("Date" = "Clock.Today" )
+    pred_obs <- pred_swc[DT_obs, on = c("Clock.Today" = "Clock.Today" )
                          ][order(SimulationID)]
   }
   return(pred_obs)
@@ -234,7 +234,7 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
                          variable.name = "Depth",
                          variable.factor = FALSE)
       pred_obs <- data.table::merge.data.table(pred, obs,
-                                               by.x = c("Date", "Depth"),
+                                               by.x = c("Clock.Today", "Depth"),
                                                by.y = c("Clock.Today", "Depth"))
       stats <- sims_stats(pred_obs,
                           keys = keys,
@@ -259,7 +259,7 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
       data.table::setnames(obs, colsofInteresetd, "ob_VWC")
 
       pred_obs <- data.table::merge.data.table(pred, obs,
-                                               by.x = c("Date", "Depth"),
+                                               by.x = c("Clock.Today", "Depth"),
                                                by.y = c("Clock.Today", "Depth"))
       pred_obs[, c("CheckpointID", "Zone") := NULL ]
       print(keys)

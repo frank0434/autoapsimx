@@ -143,7 +143,7 @@ plot_params <- function(DT = top5,
   } else {
 
      p = DT %>%
-       ggplot(aes(Date)) +
+       ggplot(aes(Clock.Today)) +
        geom_line(aes(y = get(col_pred), color = names(palette_named)[1]), size = point_size) +
        geom_point(aes(y = get(col_obs), color = names(palette_named)[2]), size = point_size) +
        ggtitle(paste0(unique(DT$Experiment), unique(DT$SowingDate))) +
@@ -242,8 +242,8 @@ plot_root <- function(DT = top1,
   palette_named[2:3] = c("blue", "red")
   shapes = c(95, 124, 16)
   shapes_named = setNames(shapes, c("PSWC", "RootDepth","SWC"))
-  DT[,.(Date, PSWC,SWC, RootDepth)] %>%
-    ggplot(aes(Date)) +
+  DT[,.(Clock.Today, PSWC,SWC, RootDepth)] %>%
+    ggplot(aes(Clock.Today)) +
     geom_line(aes(y = PSWC), size = 1, show.legend = NA) +
     geom_point(aes(y = SWC, color = "SWC", shape = "SWC"), show.legend = NA) +
     theme_water() +
