@@ -4,7 +4,14 @@
 \alias{read_met}
 \title{read_met}
 \usage{
-read_met(path = path_met, skip_unit = 9, skip_meta = 7)
+read_met(
+  path = path_met,
+  skip_unit = 9,
+  skip_meta = 7,
+  startd = "2010-10-01",
+  endd = "2012-08-01",
+  site = "AshleyDene"
+)
 }
 \arguments{
 \item{path}{A character string. The path to access the met files.}
