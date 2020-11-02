@@ -87,12 +87,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -137,19 +131,19 @@
     <p>assemble the function above to process multiple dbs</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sims_stats_multi</span>(
-  <span class='kw'>path_sims</span>,
-  pattern = <span class='st'>".db$"</span>,
-  <span class='kw'>DT_observation</span>,
-  tableName = <span class='st'>"Report"</span>,
-  pattern_trts = <span class='st'>"(Ashley|Iversen).+SD\\d{1,2}"</span>,
-  pattern_split = <span class='st'>"(.+)(SD\\d{1,2})"</span>,
-  col_treatment1 = <span class='st'>"Experiment"</span>,
-  col_treatment2 = <span class='st'>"SowingDate"</span>,
-  mode = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Profile"</span>, <span class='st'>"Layers"</span>, <span class='st'>"Manual"</span>),
-  keys = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Experiment"</span>, <span class='st'>"SimulationID"</span>, <span class='st'>"SowingDate"</span>, <span class='st'>"KLR"</span>, <span class='st'>"RFV"</span>, <span class='st'>"SKL"</span>),
-  test = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sims_stats_multi</span><span class='op'>(</span>
+  <span class='va'>path_sims</span>,
+  pattern <span class='op'>=</span> <span class='st'>".db$"</span>,
+  <span class='va'>DT_observation</span>,
+  tableName <span class='op'>=</span> <span class='st'>"Report"</span>,
+  pattern_trts <span class='op'>=</span> <span class='st'>"(Ashley|Iversen).+SD\\d{1,2}"</span>,
+  pattern_split <span class='op'>=</span> <span class='st'>"(.+)(SD\\d{1,2})"</span>,
+  col_treatment1 <span class='op'>=</span> <span class='st'>"Experiment"</span>,
+  col_treatment2 <span class='op'>=</span> <span class='st'>"SowingDate"</span>,
+  mode <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Profile"</span>, <span class='st'>"Layers"</span>, <span class='st'>"Manual"</span><span class='op'>)</span>,
+  keys <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Experiment"</span>, <span class='st'>"SimulationID"</span>, <span class='st'>"SowingDate"</span>, <span class='st'>"KLR"</span>, <span class='st'>"RFV"</span>, <span class='st'>"SKL"</span><span class='op'>)</span>,
+  test <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -235,7 +229,7 @@ test</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
