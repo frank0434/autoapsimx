@@ -53,7 +53,7 @@ read_dbtab <- function(path = "./03processed-data/Richard.sqlite3", table = "Soi
     # Update the charater string to Date
     dt$Clock.Today <- as.Date(dt$Clock.Today)
   } else if("Date" %in% colnames(dt)){
-    dt$Date <- as.Date(dt$Date)
+    dt$Clock.Today <- as.Date(dt$Date)
   }
   dt <- data.table::as.data.table(dt)
 
@@ -85,7 +85,7 @@ manipulate <- function(DT_obs = obs, redundant_cols = NULL,  DT_pred = dt){
         cols <- redundant_cols
       }
     pred_swc <- DT_pred[, (cols) :=  NULL][order(SimulationID)]
-    pred_obs <- pred_swc[DT_obs, on = c("Clock.Today" = "Clock.Today" )
+    pred_obs <- pred_swc[DT_obs, on = c("Clock.Today" )
                          ][order(SimulationID)]
   }
   return(pred_obs)
@@ -234,8 +234,7 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
                          variable.name = "Depth",
                          variable.factor = FALSE)
       pred_obs <- data.table::merge.data.table(pred, obs,
-                                               by.x = c("Clock.Today", "Depth"),
-                                               by.y = c("Clock.Today", "Depth"))
+                                               by = c("Clock.Today", "Depth"))
       stats <- sims_stats(pred_obs,
                           keys = keys,
                           col_pred = "pred_VWC",
@@ -259,8 +258,8 @@ sims_stats_multi <- function(path_sims, pattern = ".db$", DT_observation,
       data.table::setnames(obs, colsofInteresetd, "ob_VWC")
 
       pred_obs <- data.table::merge.data.table(pred, obs,
-                                               by.x = c("Clock.Today", "Depth"),
-                                               by.y = c("Clock.Today", "Depth"))
+
+                                               by = c("Clock.Today", "Depth"))
       pred_obs[, c("CheckpointID", "Zone") := NULL ]
       print(keys)
       stats <- sims_stats(pred_obs = pred_obs,
