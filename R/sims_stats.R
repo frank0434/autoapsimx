@@ -46,7 +46,7 @@ extract_trts <- function(filename,
 read_dbtab <- function(path = "./03processed-data/Richard.sqlite3", table = "SoilWater"){
   # Build the connection
   con <- DBI::dbConnect(RSQLite::SQLite(), path)
-  dt <- DBI::dbReadTable(con, name = table, check.names = FALSE)
+  dt <- DBI::dbReadTable(con, name = table, check.names = TRUE)
 
   dbDisconnect(con)
   if("Clock.Today" %in% colnames(dt)){
