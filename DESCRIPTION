@@ -24,7 +24,8 @@ Suggests:
     knitr,
     rmarkdown,
     testthat,
-    zoo
+    zoo,
+    targets
 VignetteBuilder: knitr
 URL: https://github.com/frank0434/autoapsimx
 BugReports: https://github.com/frank0434/autoapsimx/issues
