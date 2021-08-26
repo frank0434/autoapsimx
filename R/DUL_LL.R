@@ -1,4 +1,4 @@
-#' DUL_LL
+#' doDUL_LL_range
 #'
 #' @param SW data.table. Mean soil water content measurments with `Experiment`,
 #' `SowingDate` and `Depth` as three key columns.

@@ -19,7 +19,8 @@ Imports:
     stringr (>= 1.4.0),
     hydroGOF (>= 0.3-0),
     DBI (>= 1.0.0),
-    RSQLite (>= 2.1.0)
+    RSQLite (>= 2.1.0),
+    dplyr (>= 1.0.3)
 Suggests: 
     knitr,
     rmarkdown,
